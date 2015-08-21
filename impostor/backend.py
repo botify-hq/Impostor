@@ -4,7 +4,7 @@ from django.contrib.auth.models import Group
 from django.http import HttpRequest
 
 from .models import ImpostorLog
-from .compat import User
+from .compat import get_user_model
 
 from django.conf import settings
 
@@ -38,6 +38,7 @@ class AuthBackend:
     supports_inactive_user = False
 
     def authenticate(self, username=None, password=None):
+        User = get_user_model()
         auth_user = None
         try:
             # Admin logging as user?
@@ -76,6 +77,7 @@ class AuthBackend:
         return auth_user
 
     def get_user(self, user_id):
+        User = get_user_model()
         try:
             return User.objects.get(pk=user_id)
         except User.DoesNotExist:

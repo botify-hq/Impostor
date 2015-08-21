@@ -3,7 +3,9 @@ import time
 
 from django.db import models
 
-from .compat import User
+from .compat import get_user_reference
+
+User = get_user_reference()
 
 
 class ImpostorLog(models.Model):
